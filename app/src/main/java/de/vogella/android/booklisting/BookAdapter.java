@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -17,8 +20,6 @@ import static java.security.AccessController.getContext;
  */
 
 public class BookAdapter extends ArrayAdapter<Book> {
-
-
 
 
     public BookAdapter(Activity context, ArrayList<Book> books) {
@@ -52,14 +53,13 @@ public class BookAdapter extends ArrayAdapter<Book> {
         author.setText(currentBook.getAuthor());
 
 
-
-
         TextView date = (TextView) listItemView.findViewById(R.id.dates);
         date.setText(currentBook.getDate());
 
 
-        TextView pages = (TextView) listItemView.findViewById(R.id.pages);
-        pages.setText(currentBook.getPages()+"");
+        ImageView userimage = (ImageView) listItemView.findViewById(R.id.user_image);
+
+        Picasso.get().load(currentBook.getImage()).into(userimage);
 
         return listItemView;
     }

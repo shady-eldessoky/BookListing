@@ -6,35 +6,43 @@ package de.vogella.android.booklisting;
 
 public class Book {
 
-    private String mTitle ;
+    private String mTitle;
     private String mAuthor;
     private String mPublishDate;
-    private int mPageCount;
+    private String mImageUrl;
+    private String mBookUrl;
 
 
-
-    public Book (String title,String author,String date,int pages){
+    public Book(String title, String author, String date, String image, String url) {
 
         mTitle = title;
         mAuthor = author;
         mPublishDate = date;
-        mPageCount = pages;
+        mImageUrl = image;
+        mBookUrl = url;
+
 
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return mTitle;
     }
-    public String getAuthor(){
+
+    public String getAuthor() {
         return mAuthor;
     }
-    public String getDate(){
+
+    public String getDate() {
         return mPublishDate;
     }
-    public int getPages(){
-        return mPageCount;
+
+    public String getImage() {
+        return mImageUrl;
     }
 
+    public String getUrl() {
+        return mBookUrl;
+    }
 
 
 }

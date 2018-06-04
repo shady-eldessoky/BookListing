@@ -16,7 +16,10 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 
+import static android.R.attr.id;
+import static android.R.attr.y;
 import static de.vogella.android.booklisting.BooksActivity.LOG_TAG;
+
 
 /**
  * Created by User on 27/05/2018.
@@ -25,12 +28,12 @@ import static de.vogella.android.booklisting.BooksActivity.LOG_TAG;
 public final class BookService {
 
 
-    private BookService(){
+    private BookService() {
     }
 
 
     public static ArrayList<Book> fetchBooksData(String urlRequest) {
-        Log.i(LOG_TAG,"fetchBookData : called");
+        Log.i(LOG_TAG, "fetchBookData : called");
 
 
         URL url = createUrl(urlRequest);
@@ -121,12 +124,25 @@ public final class BookService {
                 JSONObject currentbook1 = bookArray.getJSONObject(i);
                 JSONObject volumeInfo = currentbook1.getJSONObject("volumeInfo");
 
-                String title  = volumeInfo.getString("title");
-                String author = volumeInfo.getString("publisher");
-                String date   = volumeInfo.getString("publishedDate");
-                int    pages  = volumeInfo.getInt("pageCount");
+                String title = volumeInfo.getString("title");
+                JSONArray authors = volumeInfo.getJSONArray("authors");
+                //String author = authors.getString(0);
 
-                Book book = new Book(title, author, date, pages);
+                StringBuilder builder = new StringBuilder();
+                for (int y = 0; y < authors.length(); y++) {
+                    String author1 = authors.getString(y);
+                    builder.append(author1).append(" , ");
+
+                }
+                String author = builder.toString();
+
+                String date = volumeInfo.getString("publishedDate");
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                String bookImage = imageLinks.getString("smallThumbnail");
+                String bookUrl = volumeInfo.getString("infoLink");
+
+
+                Book book = new Book(title, author, date, bookImage, bookUrl);
                 books.add(book);
             }
 
